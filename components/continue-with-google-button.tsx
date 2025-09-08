@@ -11,7 +11,7 @@ export default function ContinueWithGoogleButton() {
       onClick={() => {
         auth?.loginWithGoogle();
       }}
-      className="w-full bg-sky-950"
+      className="w-full bg-sky-950 hover:bg-sky-800"
     >
       Continue with Google
     </Button>
