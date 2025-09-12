@@ -8,7 +8,7 @@ export type Property = {
   postcode: string;
   price: number;
   bedrooms: number;
-  bathroom: number;
+  bathrooms: number;
   description: string;
   status: PropertyStatus;
 };
