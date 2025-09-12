@@ -10,7 +10,7 @@ export default async function AdminDashBoard({
   searchParams?: Promise<any>;
 }) {
   const searchParamsValue = await searchParams;
-  console.log({ searchParamsValue });
+  // console.log({ searchParamsValue });
   return (
     <div>
       <Breadcrumbs
