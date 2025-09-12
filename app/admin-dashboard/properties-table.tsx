@@ -9,8 +9,12 @@ import {
 import { getProperties } from '@/data/properties';
 
 export default async function PropertiesTable() {
-  const { data } = await getProperties();
-  //   console.log({ data });
+  const { data, totalPages } = await getProperties({
+    pagination: {
+      pageSize: 2,
+    },
+  });
+  console.log({ data, totalPages });
 
   return (
     <>
