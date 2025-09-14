@@ -12,7 +12,7 @@ export default async function EditProperty({
   //   console.log({ paramsValue });
 
   const property = await getPropertyById(paramsValue.propertyId);
-  console.log({ property });
+  // console.log({ property });
 
   return (
     <div>
