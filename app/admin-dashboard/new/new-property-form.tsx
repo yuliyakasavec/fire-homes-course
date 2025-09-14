@@ -20,7 +20,8 @@ export default function NewPropertyForm() {
       return;
     }
 
-    const response = await createProperty(data, token);
+    const response = await createProperty(data, token || '');
+
     if (!!response.error) {
       toast.error('Error!', {
         description: response.error,
