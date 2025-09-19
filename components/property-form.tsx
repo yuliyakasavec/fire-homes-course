@@ -22,6 +22,7 @@ import {
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
+import MultiImageUploader from './multi-image-uploader';
 
 type Props = {
   submitButtonLabel: React.ReactNode;
@@ -200,6 +201,7 @@ export default function PropertyForm({
             />
           </fieldset>
         </div>
+        <MultiImageUploader onImagesChange={() => {}} />
         <Button
           type="submit"
           className="max-w-md mx-auto mt-2 w-full flex gap-2"
