@@ -2,7 +2,12 @@
 
 import { useRef } from 'react';
 import { Button } from './ui/button';
-import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+} from '@hello-pangea/dnd';
 import Image from 'next/image';
 import { Badge } from './ui/badge';
 import { MoveIcon, XIcon } from 'lucide-react';
@@ -24,7 +29,7 @@ export default function MultiImageUploader({
 }: Props) {
   const uploadInputRef = useRef<HTMLInputElement | null>(null);
 
-  console.log({ images });
+  //   console.log({ images });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -36,6 +41,22 @@ export default function MultiImageUploader({
       };
     });
     onImagesChange([...images, ...newImages]);
+  };
+
+  const handleDragEnd = (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+
+    const items = Array.from(images);
+    const [reorderedImage] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedImage);
+    onImagesChange(items);
+  };
+
+  const handleDelete = (id: string) => {
+    const updatedImages = images.filter((image) => image.id !== id);
+    onImagesChange(updatedImages);
   };
 
   return (
@@ -56,7 +77,7 @@ export default function MultiImageUploader({
       >
         Upload images
       </Button>
-      <DragDropContext onDragEnd={() => {}}>
+      <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="property-images" direction="vertical">
           {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -87,7 +108,10 @@ export default function MultiImageUploader({
                           )}
                         </div>
                         <div className="flex items-center p-2">
-                          <button className="text-red-500 p-2">
+                          <button
+                            className="text-red-500 p-2"
+                            onClick={() => handleDelete(image.id)}
+                          >
                             <XIcon />
                           </button>
                           <div className="text-gray-500">
