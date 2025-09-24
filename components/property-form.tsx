@@ -233,7 +233,6 @@ export default function PropertyForm({
 
         <Button
           type="submit"
-          variant="primary"
           className="max-w-md mx-auto mt-2 w-full flex gap-2"
           disabled={form.formState.isSubmitting}
         >
