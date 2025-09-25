@@ -14,12 +14,12 @@ export default async function PropertySearch({
 }: {
   searchParams: Promise<any>;
 }) {
-  const searchParamsValue = await searchParams;
+  const searchParamsValues = await searchParams;
 
-  const parsedPage = parseInt(searchParamsValue?.page);
-  const parsedMinPrice = parseInt(searchParamsValue?.minPrice);
-  const parsedMaxPrice = parseInt(searchParamsValue?.maxPrice);
-  const parsedMinBedrooms = parseInt(searchParamsValue?.minBedrooms);
+  const parsedPage = parseInt(searchParamsValues?.page);
+  const parsedMinPrice = parseInt(searchParamsValues?.minPrice);
+  const parsedMaxPrice = parseInt(searchParamsValues?.maxPrice);
+  const parsedMinBedrooms = parseInt(searchParamsValues?.minBedrooms);
 
   const page = isNaN(parsedPage) ? 1 : parsedPage;
   const minPrice = isNaN(parsedMinPrice) ? null : parsedMinPrice;
@@ -101,6 +101,38 @@ export default async function PropertySearch({
                 </div>
               </CardContent>
             </Card>
+          );
+        })}
+      </div>
+      <div className="flex gap-2 items-center justify-center py-10">
+        {Array.from({ length: totalPages }).map((_, i) => {
+          const newSearchparams = new URLSearchParams();
+
+          if (searchParamsValues?.minPrice) {
+            newSearchparams.set('minPrice', searchParamsValues.minPrice);
+          }
+
+          if (searchParamsValues?.maxPrice) {
+            newSearchparams.set('maxPrice', searchParamsValues.maxPrice);
+          }
+
+          if (searchParamsValues?.minBedrooms) {
+            newSearchparams.set('minBedrooms', searchParamsValues.minBedrooms);
+          }
+
+          newSearchparams.set('page', `${i + 1}`);
+
+          return (
+            <Button
+              key={i}
+              asChild={page !== i + 1}
+              disabled={page === i + 1}
+              variant="outline"
+            >
+              <Link href={`/property-search?${newSearchparams.toString()}`}>
+                {i + 1}
+              </Link>
+            </Button>
           );
         })}
       </div>
