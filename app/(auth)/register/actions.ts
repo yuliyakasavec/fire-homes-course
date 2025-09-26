@@ -27,7 +27,7 @@ export const registerUser = async (data: {
   } catch (e) {
     return {
       error: true,
-      message: 'Could not register user',
+      message: e.message ?? 'Could not register user',
     };
   }
 };

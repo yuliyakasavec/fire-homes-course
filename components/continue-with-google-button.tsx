@@ -12,8 +12,10 @@ export default function ContinueWithGoogleButton() {
     <Button
       variant="outline"
       onClick={async () => {
-        await auth?.loginWithGoogle();
-        router.refresh();
+        try {
+          await auth?.loginWithGoogle();
+          router.refresh();
+        } catch (e) {}
       }}
       className="w-full "
     >
