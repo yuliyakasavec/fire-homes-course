@@ -1,8 +1,10 @@
 'use client';
 
 import { HeartIcon } from 'lucide-react';
-import { addFavourite } from './actions';
+import { addFavourite, removeFavourite } from './actions';
 import { useAuth } from '@/context/auth';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function ToggleFavouriteButton({
   propertyId,
@@ -12,18 +14,33 @@ export default function ToggleFavouriteButton({
   isFavourite: boolean;
 }) {
   const auth = useAuth();
+  const router = useRouter();
   return (
     <button
-      className="absolute top-0 right-0 z-10 p-2"
+      className="absolute top-0 right-0 z-10 p-2 bg-white rounded-bl-lg"
       onClick={async () => {
         const tokenResult = await auth?.currentUser?.getIdTokenResult();
         if (!tokenResult) {
           return;
         }
-        await addFavourite(propertyId, tokenResult.token);
+        if (isFavourite) {
+          await removeFavourite(propertyId, tokenResult.token);
+        } else {
+          await addFavourite(propertyId, tokenResult.token);
+        }
+
+        toast.success('Success!', {
+          description: `Property ${
+            isFavourite ? 'removed from' : 'added to'
+          } favourites`,
+        });
+        router.refresh();
       }}
     >
-      <HeartIcon fill={isFavourite ? 'pink' : 'white'} />
+      <HeartIcon
+        className="text-black"
+        fill={isFavourite ? '#db2777' : 'white'}
+      />
     </button>
   );
 }
