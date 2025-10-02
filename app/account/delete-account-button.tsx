@@ -23,6 +23,7 @@ import {
 } from 'firebase/auth';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { deleteUserFavourites } from './actions';
 
 export default function DeleteAccountButton() {
   const auth = useAuth();
@@ -37,6 +38,7 @@ export default function DeleteAccountButton() {
           auth.currentUser,
           EmailAuthProvider.credential(auth.currentUser.email, password)
         );
+        await deleteUserFavourites();
         await deleteUser(auth.currentUser);
         await removeToken();
 
