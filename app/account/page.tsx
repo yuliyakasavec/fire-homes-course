@@ -4,6 +4,7 @@ import { auth } from '@/firebase/server';
 import { DecodedIdToken } from 'firebase-admin/auth';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import UpdatePasswordForm from './update-password-form';
 
 export default async function Account() {
   const cookieStore = await cookies();
@@ -34,7 +35,7 @@ export default async function Account() {
         <CardContent>
           <Label>Email</Label>
           <div>{decodedToken.email}</div>
-          {!!isPasswordProvider && <div>update password form</div>}
+          {!!isPasswordProvider && <UpdatePasswordForm />}
         </CardContent>
       </Card>
     </div>
