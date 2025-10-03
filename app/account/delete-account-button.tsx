@@ -45,7 +45,7 @@ export default function DeleteAccountButton() {
         toast.success('Success!', {
           description: 'Your account was deleted successfully!',
         });
-      } catch (e) {
+      } catch (e: any) {
         toast.error('Error!', {
           description:
             e.code === 'auth/invalid-credential'

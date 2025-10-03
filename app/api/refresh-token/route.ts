@@ -36,8 +36,8 @@ export const GET = async (request: NextRequest) => {
       secure: process.env.NODE_ENV === 'production',
     });
     return NextResponse.redirect(new URL(path, request.url));
-  } catch (error) {
-    console.log('Failed to refresh token: ', error);
+  } catch (e: any) {
+    console.log('Failed to refresh token: ', e);
     return NextResponse.redirect(new URL('/', request.url));
   }
 };

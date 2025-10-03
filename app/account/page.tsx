@@ -24,7 +24,7 @@ export default async function Account() {
   let decodedToken: DecodedIdToken;
   try {
     decodedToken = await auth.verifyIdToken(token);
-  } catch (error) {
+  } catch (e: any) {
     redirect('/');
   }
 

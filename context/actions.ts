@@ -41,7 +41,7 @@ export const setToken = async ({
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
     });
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
   }
 };

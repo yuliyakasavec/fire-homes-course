@@ -67,7 +67,7 @@ export default function UpdatePasswordForm() {
         description: 'Password updated successfully!',
       });
       form.reset();
-    } catch (e) {
+    } catch (e: any) {
       console.log({ e });
 
       toast.error('Error!', {
